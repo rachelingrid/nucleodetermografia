@@ -1,0 +1,165 @@
+/* Funcionamento do site. Não é preciso editar este arquivo:
+   o conteúdo fica em js/conteudo.js */
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const esc = (t) => String(t ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const D = (typeof SITE !== "undefined" && SITE) || {};
+  const MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+  const reduzMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function vazio(lista, alvoId, vazioId) {
+    const tem = Array.isArray(lista) && lista.length > 0;
+    if (!tem && vazioId) $(vazioId).hidden = false;
+    if (!tem && alvoId) $(alvoId).hidden = true;
+    return tem;
+  }
+  function iniciais(nome) {
+    const p = nome.replace(/^(Prof\.?\s*)?(Dr\.?|Dra\.?)\s*/i, "").split(/\s+/).filter((x) => x.length > 2);
+    return ((p[0] || "")[0] + (p[p.length - 1] || "")[0]).toUpperCase();
+  }
+  function dataBox(iso) {
+    const d = new Date(iso + "T12:00:00");
+    if (isNaN(d)) return `<div class="data"><b>—</b></div>`;
+    return `<div class="data"><b>${d.getDate()}</b><small>${MESES[d.getMonth()]} ${d.getFullYear()}</small></div>`;
+  }
+  function idYoutube(link) {
+    const m = String(link).match(/(?:youtu\.be\/|v=|embed\/|shorts\/|live\/)([\w-]{11})/);
+    return m ? m[1] : (/^[\w-]{11}$/.test(link) ? link : null);
+  }
+
+  /* Faixa de proposta */
+  if (D.modoProposta) $("faixaProposta").hidden = false;
+
+  /* Menu no celular */
+  const btn = $("menuBtn"), menu = $("menu");
+  btn.addEventListener("click", () => {
+    const aberto = menu.classList.toggle("aberto");
+    btn.setAttribute("aria-expanded", aberto);
+  });
+  menu.addEventListener("click", (e) => { if (e.target.tagName === "A") { menu.classList.remove("aberto"); btn.setAttribute("aria-expanded", "false"); } });
+
+  /* Contato */
+  const c = D.contato || {};
+  $("contatoSala").innerHTML = `${esc(c.sala)}<br>${esc(c.endereco)}`;
+  const acoes = [];
+  if (c.email) acoes.push(`<a class="btn btn-azul" href="mailto:${esc(c.email)}">Enviar e-mail</a>`);
+  if (c.telefone) acoes.push(`<a class="btn btn-linha" href="tel:${esc(c.telefone.replace(/\D/g, ""))}">Ligar ${esc(c.telefone)}</a>`);
+  $("contatoAcoes").innerHTML = acoes.join("");
+  $("enderecoContato").innerHTML = `${esc(c.sala)}<br>${esc(c.endereco)}`;
+  $("rodapeContato").innerHTML = [c.email && `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`, c.telefone && esc(c.telefone), esc(c.sala)].filter(Boolean).join("<br>");
+  $("ano").textContent = new Date().getFullYear();
+
+  /* Fotos do campus no topo */
+  const fotos = (D.fotosCampus || []).filter(Boolean);
+  if (fotos.length) {
+    const box = $("heroFotos");
+    box.classList.add("tem-fotos");
+    box.innerHTML = fotos.map((f) => `<img src="${esc(f)}" alt="" loading="lazy">`).join("");
+    const imgs = box.querySelectorAll("img");
+    let i = 0;
+    imgs[0].classList.add("ativa");
+    if (imgs.length > 1 && !reduzMovimento) setInterval(() => {
+      imgs[i].classList.remove("ativa");
+      i = (i + 1) % imgs.length;
+      imgs[i].classList.add("ativa");
+    }, 7000);
+  }
+
+  /* Vídeos: miniaturas girando */
+  const videos = (D.videos || []).map((v) => ({ ...v, id: idYoutube(v.link) })).filter((v) => v.id);
+  if (vazio(videos, "carrossel", "videosVazio")) {
+    const card = (v) => `<button class="video" data-id="${v.id}" aria-label="Assistir: ${esc(v.titulo)}">
+        <div class="video-mini"><img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="" loading="lazy"></div>
+        <span>${esc(v.titulo)}</span></button>`;
+    const trilho = $("trilho");
+    // repete os itens para o giro ser contínuo
+    const base = videos.map(card).join("");
+    const reps = Math.max(2, Math.ceil(8 / videos.length));
+    trilho.innerHTML = base.repeat(reps * 2);
+    let x = 0, pausa = false, larg = 0;
+    const medir = () => { larg = trilho.scrollWidth / 2; };
+    medir(); window.addEventListener("resize", medir);
+    const car = $("carrossel");
+    car.addEventListener("mouseenter", () => (pausa = true));
+    car.addEventListener("mouseleave", () => (pausa = false));
+    car.addEventListener("focusin", () => (pausa = true));
+    car.addEventListener("focusout", () => (pausa = false));
+    if (!reduzMovimento) {
+      (function giro() {
+        if (!pausa && larg) { x -= 0.4; if (-x >= larg) x = 0; trilho.style.transform = `translateX(${x}px)`; }
+        requestAnimationFrame(giro);
+      })();
+    } else { car.style.overflowX = "auto"; }
+    trilho.addEventListener("click", (e) => {
+      const b = e.target.closest(".video");
+      if (b) abrirVideo(b.dataset.id);
+    });
+  }
+  const modal = $("modal");
+  function abrirVideo(id) {
+    $("modalVideo").innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="Vídeo" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+    modal.hidden = false;
+    modal.querySelector(".modal-fechar").focus();
+  }
+  function fecharVideo() { modal.hidden = true; $("modalVideo").innerHTML = ""; }
+  modal.addEventListener("click", (e) => { if (e.target.hasAttribute("data-fechar")) fecharVideo(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) fecharVideo(); });
+
+  /* Artigos */
+  const artigos = D.artigos || [];
+  if (vazio(artigos, "listaArtigos", "artigosVazio")) {
+    $("listaArtigos").innerHTML = artigos.map((a) => `<article class="artigo">
+        <div><div class="artigo-ano">${esc(a.ano)}</div><span class="artigo-tema">${esc(a.tema)}</span></div>
+        <div><h3>${esc(a.titulo)}</h3>
+          <p class="ref">${esc(a.autores)}${a.revista ? " · <em>" + esc(a.revista) + "</em>" : ""}</p>
+          <p class="coment">${esc(a.comentario)}</p>
+          ${a.link ? `<a href="${esc(a.link)}" target="_blank" rel="noopener">Ler o artigo original →</a>` : ""}</div>
+      </article>`).join("");
+  }
+
+  /* Espaço do pesquisador */
+  $("listaPesquisas").innerHTML = (D.pesquisas || []).map((p) => `<article class="pesq">
+      ${p.status ? `<span class="status">${esc(p.status)}</span>` : ""}
+      <h3>${esc(p.titulo)}</h3>
+      <p class="quem">${esc(p.pesquisador)} · ${esc(p.nivel)}</p>
+      <p>${esc(p.resumo)}</p>
+      ${p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">Ver resultados e dados →</a>` : ""}
+    </article>`).join("");
+
+  /* Equipe */
+  $("listaEquipe").innerHTML = (D.equipe || []).map((m) => `<article class="membro">
+      <div class="membro-foto" data-ini="${iniciais(m.nome)}">${m.foto ? `<img src="${esc(m.foto)}" alt="Foto de ${esc(m.nome)}" loading="lazy">` : iniciais(m.nome)}</div>
+      <div class="membro-corpo">
+        <h3>${esc(m.nome)}</h3>
+        <p class="papel">${esc(m.papel)}</p>
+        <p class="mini">${esc(m.mini)}</p>
+        <div class="membro-links">${(m.links || []).map((l) => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.rotulo)}</a>`).join("")}</div>
+      </div></article>`).join("");
+  // sem foto no arquivo -> mostra iniciais
+  document.querySelectorAll(".membro-foto img").forEach((img) => {
+    img.addEventListener("error", () => { const box = img.parentElement; box.textContent = box.dataset.ini; });
+  });
+
+  /* Eventos e visitas */
+  const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+  const futuros = (l) => (l || []).filter((x) => new Date(x.data + "T23:59:00") >= hoje).sort((a, b) => a.data.localeCompare(b.data));
+  const eventos = futuros(D.eventos);
+  if (vazio(eventos, "listaEventos", "eventosVazio")) {
+    $("listaEventos").innerHTML = eventos.map((e) => `<li>${dataBox(e.data)}<div>
+        <h4>${e.link ? `<a href="${esc(e.link)}" target="_blank" rel="noopener">${esc(e.titulo)}</a>` : esc(e.titulo)}</h4>
+        <p>${esc(e.local)}</p></div></li>`).join("");
+  }
+  const visitas = futuros(D.visitas);
+  if (vazio(visitas, "listaVisitas", "visitasVazio")) {
+    $("listaVisitas").innerHTML = visitas.map((v) => `<li>${dataBox(v.data)}<div>
+        <h4>Visita aberta · ${esc(v.horario)}</h4>
+        <p>${esc(v.vagas)}${v.inscricao ? ` · <a href="${esc(v.inscricao)}" target="_blank" rel="noopener">Inscreva-se</a>` : ""}</p></div></li>`).join("");
+  }
+
+  /* Galeria */
+  const galeria = D.fotos || [];
+  if (vazio(galeria, "galeria", "fotosVazio")) {
+    $("galeria").innerHTML = galeria.map((f) => `<figure><img src="${esc(f.arquivo)}" alt="${esc(f.legenda)}" loading="lazy"><figcaption>${esc(f.legenda)}</figcaption></figure>`).join("");
+  }
+})();
