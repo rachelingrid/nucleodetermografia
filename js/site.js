@@ -80,6 +80,22 @@
     }, 7000);
   }
 
+  /* Faixa que gira sozinha (usada por vídeos e fotos) */
+  function girar(car, trilho, html, vel) {
+    const n = (html.match(/class="(video|foto)/g) || []).length || 1;
+    trilho.innerHTML = html.repeat(Math.max(2, Math.ceil(8 / n)) * 2);
+    let x = 0, pausa = false, larg = 0;
+    const medir = () => { larg = trilho.scrollWidth / 2; };
+    medir(); window.addEventListener("resize", medir); window.addEventListener("load", medir);
+    ["mouseenter", "focusin", "touchstart"].forEach((ev) => car.addEventListener(ev, () => (pausa = true), { passive: true }));
+    ["mouseleave", "focusout", "touchend"].forEach((ev) => car.addEventListener(ev, () => (pausa = false), { passive: true }));
+    if (reduzMovimento) { car.style.overflowX = "auto"; return; }
+    (function passo() {
+      if (!pausa && larg) { x -= vel; if (-x >= larg) x = 0; trilho.style.transform = `translateX(${x}px)`; }
+      requestAnimationFrame(passo);
+    })();
+  }
+
   /* Vídeos: miniaturas girando */
   const videos = (D.videos || []).map((v) => ({ ...v, id: idYoutube(v.link) })).filter((v) => v.id);
   if (vazio(videos, "carrossel", "videosVazio")) {
@@ -173,9 +189,26 @@
         <p>${esc(v.vagas)}${v.inscricao ? ` · <a href="${esc(v.inscricao)}" target="_blank" rel="noopener">Inscreva-se</a>` : ""}</p></div></li>`).join("");
   }
 
-  /* Galeria */
-  const galeria = D.fotos || [];
-  if (vazio(galeria, "galeria", "fotosVazio")) {
-    $("galeria").innerHTML = galeria.map((f) => `<figure><img src="${esc(f.arquivo)}" alt="${esc(f.legenda)}" loading="lazy"><figcaption>${esc(f.legenda)}</figcaption></figure>`).join("");
+  /* Galeria: fotos e vídeos curtos girando */
+  const galeria = (D.fotos || []).filter((f) => f.arquivo || f.video);
+  if (vazio(galeria, "carrosselFotos", "fotosVazio")) {
+    const item = (f, i) => f.video
+      ? `<button class="foto foto-video" data-i="${i}" aria-label="Assistir: ${esc(f.legenda)}"><video src="${esc(f.video)}" poster="${esc(f.capa || "")}" muted loop playsinline preload="none"></video><span>${esc(f.legenda)}</span></button>`
+      : `<button class="foto" data-i="${i}" aria-label="Ampliar: ${esc(f.legenda)}"><img src="${esc(f.arquivo)}" alt="${esc(f.legenda)}" loading="lazy"><span>${esc(f.legenda)}</span></button>`;
+    girar($("carrosselFotos"), $("galeria"), galeria.map(item).join(""), 0.35);
+    $("galeria").addEventListener("click", (e) => {
+      const b = e.target.closest(".foto"); if (!b) return;
+      const f = galeria[b.dataset.i];
+      $("modalVideo").innerHTML = f.video
+        ? `<video src="${esc(f.video)}" controls autoplay playsinline></video>`
+        : `<img src="${esc(f.arquivo)}" alt="${esc(f.legenda)}">`;
+      modal.classList.toggle("modal-foto", !f.video);
+      modal.hidden = false; modal.querySelector(".modal-fechar").focus();
+    });
+    // vídeos da faixa tocam sem som só quando visíveis
+    if ("IntersectionObserver" in window && !reduzMovimento) {
+      const io = new IntersectionObserver((ents) => ents.forEach((en) => { const v = en.target; en.isIntersecting ? v.play().catch(() => {}) : v.pause(); }), { threshold: 0.4 });
+      document.querySelectorAll("#galeria video").forEach((v) => { v.preload = "metadata"; io.observe(v); });
+    }
   }
 })();

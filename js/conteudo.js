@@ -120,7 +120,7 @@ const SITE = {
       foto: "img/equipe/marcia-ramos.jpg",
       mini: "Doutoranda do Programa de Engenharia Biomédica da COPPE/UFRJ. Pesquisa a termografia infravermelha como ferramenta de estudo do envelhecimento fisiológico, associando imagens térmicas, força de preensão manual e composição corporal.",
       links: [
-        { rotulo: "Currículo", url: "https://www.escavador.com/sobre/800663/marcia-ramos-da-silva-do-nascimento" },
+        { rotulo: "Lattes", url: "http://lattes.cnpq.br/7568696318058888" },
       ],
     },
     {
@@ -129,8 +129,8 @@ const SITE = {
       foto: "img/equipe/rachel-ingrid.jpg",
       mini: "Fisioterapeuta intensivista com mais de 20 anos de atuação em UTI, incluindo a linha de frente da COVID-19. No mestrado, desenvolve protocolos e uma cabine de isolamento térmico para tornar reprodutível a termografia da região periorbital.",
       links: [
+        { rotulo: "Lattes", url: "http://lattes.cnpq.br/6678459905551495" },
         { rotulo: "ORCID", url: "https://orcid.org/0000-0002-0408-6302" },
-        { rotulo: "Currículo", url: "https://fisiorachelingrid.wixsite.com/rachelingrid" },
       ],
     },
   ],
@@ -147,6 +147,25 @@ const SITE = {
 
   /* --- Galeria de fotos (pasta img/fotos/) ------------------------ */
   fotos: [
-    // { arquivo: "img/fotos/semana-peb-2026.jpg", legenda: "Semana do PEB 2026" },
+    // Foto:  { arquivo: "img/fotos/nome.jpg", legenda: "..." }
+    // Vídeo curto (mp4, até ~1 min): { video: "img/fotos/nome.mp4", capa: "img/fotos/nome.jpg", legenda: "..." }
+    { arquivo: "img/fotos/coppe-60-anos-peb.jpg", legenda: "COPPE 60 anos — apresentação do Programa de Engenharia Biomédica" },
+    { arquivo: "img/fotos/aula-inaugural-correa-do-lago.jpg", legenda: "Aula inaugural aberta da COPPE — Embaixador André Corrêa do Lago" },
+    { arquivo: "img/fotos/workshop-funcao-cerebral.jpg", legenda: "Workshop de Monitorização da Função Cerebral — PEB 50 anos" },
+    { video: "img/fotos/vem-para-a-coppe.mp4", capa: "img/fotos/vem-para-a-coppe.jpg", legenda: "Vem para a Coppe! — vídeo da COPPE/UFRJ (Laboratório de Produção Multimídia)" },
+    { arquivo: "img/fotos/aula-inaugural-2025.jpg", legenda: "Aula inaugural aberta 2025 — O Rio na Economia do Conhecimento" },
+    { arquivo: "img/fotos/confraternizacao-peb-3.jpg", legenda: "Confraternização no PEB" },
+    { arquivo: "img/fotos/aula-ecg-jurandir-nadal.jpg", legenda: "Aula de processamento de sinais eletrocardiográficos — Prof. Jurandir Nadal" },
+    { arquivo: "img/fotos/sede-coppe.jpg", legenda: "Sede da COPPE/UFRJ — Cidade Universitária" },
+    { arquivo: "img/fotos/alberto-luiz-coimbra.jpg", legenda: "Homenagem a Alberto Luiz Coimbra, criador da COPPE" },
+    { arquivo: "img/fotos/confraternizacao-peb-1.jpg", legenda: "Confraternização no PEB" },
+    { arquivo: "img/fotos/ct2-coppe.jpg", legenda: "CT2 — Centro de Gestão Tecnológica da COPPE" },
+    { arquivo: "img/fotos/docentes-coppe.jpg", legenda: "Encontro em frente à COPPE" },
+    { arquivo: "img/fotos/placa-ntieb.jpg", legenda: "NTIEB — Núcleo de Tecnologia e Inovação em Engenharia Biomédica Prof. Fernando Infantosi" },
+    { arquivo: "img/fotos/corredor-centro-tecnologia.jpg", legenda: "Corredor do Centro de Tecnologia" },
+    { arquivo: "img/fotos/gremio-coppe.jpg", legenda: "Grêmio Prof. Alberto Luiz Coimbra — COPPE" },
+    { arquivo: "img/fotos/confraternizacao-peb-2.jpg", legenda: "Confraternização no PEB" },
+    { arquivo: "img/fotos/aula-inaugural-tela.jpg", legenda: "Aula inaugural aberta — Ciência e Tecnologia na Vanguarda" },
+    { arquivo: "img/fotos/placa-coppe.jpg", legenda: "Diretorias da COPPE e Fundação COPPETEC" },
   ],
 };
