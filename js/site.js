@@ -189,16 +189,18 @@
         <p>${esc(v.vagas)}${v.inscricao ? ` · <a href="${esc(v.inscricao)}" target="_blank" rel="noopener">Inscreva-se</a>` : ""}</p></div></li>`).join("");
   }
 
-  /* Galeria: fotos e vídeos curtos girando */
-  const galeria = (D.fotos || []).filter((f) => f.arquivo || f.video);
-  if (vazio(galeria, "carrosselFotos", "fotosVazio")) {
+  /* Carrosséis de mídia (fotos e vídeos curtos) */
+  function montarMidias(lista, carId, trilhoId, vazioId) {
+    const itens = (lista || []).filter((f) => f.arquivo || f.video);
+    if (!vazio(itens, carId, vazioId)) return;
     const item = (f, i) => f.video
       ? `<button class="foto foto-video" data-i="${i}" aria-label="Assistir: ${esc(f.legenda)}"><video src="${esc(f.video)}" poster="${esc(f.capa || "")}" muted loop playsinline preload="none"></video><span>${esc(f.legenda)}</span></button>`
       : `<button class="foto" data-i="${i}" aria-label="Ampliar: ${esc(f.legenda)}"><img src="${esc(f.arquivo)}" alt="${esc(f.legenda)}" loading="lazy"><span>${esc(f.legenda)}</span></button>`;
-    girar($("carrosselFotos"), $("galeria"), galeria.map(item).join(""), 0.35);
-    $("galeria").addEventListener("click", (e) => {
+    const trilho = $(trilhoId);
+    girar($(carId), trilho, itens.map(item).join(""), 0.35);
+    trilho.addEventListener("click", (e) => {
       const b = e.target.closest(".foto"); if (!b) return;
-      const f = galeria[b.dataset.i];
+      const f = itens[b.dataset.i];
       $("modalVideo").innerHTML = f.video
         ? `<video src="${esc(f.video)}" controls autoplay playsinline></video>`
         : `<img src="${esc(f.arquivo)}" alt="${esc(f.legenda)}">`;
@@ -208,7 +210,10 @@
     // vídeos da faixa tocam sem som só quando visíveis
     if ("IntersectionObserver" in window && !reduzMovimento) {
       const io = new IntersectionObserver((ents) => ents.forEach((en) => { const v = en.target; en.isIntersecting ? v.play().catch(() => {}) : v.pause(); }), { threshold: 0.4 });
-      document.querySelectorAll("#galeria video").forEach((v) => { v.preload = "metadata"; io.observe(v); });
+      trilho.querySelectorAll("video").forEach((v) => { v.preload = "metadata"; io.observe(v); });
     }
   }
+  montarMidias(D.midiasColeta, "carrosselColeta", "trilhoColeta", null);
+  if (!(D.midiasColeta || []).length) $("tituloColeta").hidden = true;
+  montarMidias(D.fotos, "carrosselFotos", "galeria", "fotosVazio");
 })();

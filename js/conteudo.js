@@ -145,6 +145,15 @@ const SITE = {
     // { data: "2026-12-05", horario: "10h às 12h", vagas: "15 vagas", inscricao: "https://..." },
   ],
 
+  /* --- Mídias da coleta (carrossel na seção "Participe", acima do QR code)
+     Mesmo formato da galeria abaixo. Lista vazia = o carrossel some. */
+  midiasColeta: [
+    { video: "img/coleta/coleta-1.mp4", capa: "img/coleta/coleta-1.jpg", legenda: "Imagem térmica das costas: a câmera mostra o calor da pele" },
+    { video: "img/coleta/coleta-2.mp4", capa: "img/coleta/coleta-2.jpg", legenda: "Câmera térmica no tripé: imagem de corpo inteiro" },
+    { video: "img/coleta/coleta-3.mp4", capa: "img/coleta/coleta-3.jpg", legenda: "Imagem térmica das mãos" },
+    { video: "img/coleta/coleta-4.mp4", capa: "img/coleta/coleta-4.jpg", legenda: "Balança de composição corporal" },
+  ],
+
   /* --- Galeria de fotos (pasta img/fotos/) ------------------------ */
   fotos: [
     // Foto:  { arquivo: "img/fotos/nome.jpg", legenda: "..." }
