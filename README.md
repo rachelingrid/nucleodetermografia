@@ -11,7 +11,7 @@ Site de comunicação científica sobre **termografia infravermelha** do Program
 3. **Expor o problema central da área — reprodutibilidade —** e a proposta de um núcleo multiusuário de termografia, aberto a pesquisas de toda a UFRJ, com protocolos validados e ambiente controlado.
 4. **Dar identidade visual** séria e consistente ao grupo.
 
-> Status: **proposta de comunicação em avaliação**. O Núcleo ainda não está formalmente constituído; as pesquisas descritas são do LAPIS/PEB/COPPE/UFRJ.
+> Página de referência das nossas pesquisas em termografia — não é um site institucional. As pesquisas descritas são realizadas no LAPIS/PEB/COPPE/UFRJ.
 
 ## Seções
 
@@ -47,7 +47,7 @@ Todo o conteúdo que muda fica em **um único arquivo: [`js/conteudo.js`](js/con
 | Pôr foto da equipe | envie para `img/equipe/` com o nome indicado em `equipe:` (quadrada, ~400×400 px) |
 | Pôr fotos do campus no topo | envie para `img/campus/` e liste em `fotosCampus:` |
 | Galeria | envie para `img/fotos/` e liste em `fotos:` |
-| Tirar a faixa “proposta” | `modoProposta: false` |
+| Tirar a faixa do topo | `modoProposta: false` |
 
 Para enviar imagens: abra a pasta no GitHub → **Add file → Upload files**.
 

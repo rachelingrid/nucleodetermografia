@@ -13,7 +13,7 @@
 const SITE = {
 
   /* --- Aviso de proposta ------------------------------------------
-     true  = mostra a faixa "Proposta de comunicação" no topo
+     true  = mostra a faixa "Página de referência das nossas pesquisas" no topo
      false = esconde a faixa (quando o Núcleo estiver formalizado) */
   modoProposta: true,
 
