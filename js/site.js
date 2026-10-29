@@ -214,6 +214,6 @@
     }
   }
   montarMidias(D.midiasColeta, "carrosselColeta", "trilhoColeta", null);
-  if (!(D.midiasColeta || []).length) $("tituloColeta").hidden = true;
+  if (!(D.midiasColeta || []).length) { $("tituloColeta").hidden = true; $("notaColeta").hidden = true; }
   montarMidias(D.fotos, "carrosselFotos", "galeria", "fotosVazio");
 })();

@@ -361,3 +361,6 @@ p{margin:0 0 1em}
 .modal-foto .modal-video img{max-width:100%;max-height:85vh;width:auto;border-radius:8px}
 .carrossel-coleta .foto{height:340px}
 @media (max-width:600px){.carrossel-coleta .foto{height:280px}}
+.nota-autorizacao{display:flex;align-items:center;gap:8px;margin:12px 0 0;font-size:.85rem;font-style:italic;color:var(--texto-2)}
+.nota-autorizacao svg{flex:0 0 18px;width:18px;height:18px;fill:none;stroke:var(--azul);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.nota-autorizacao[hidden]{display:none}
