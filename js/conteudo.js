@@ -46,15 +46,14 @@ const SITE = {
     { titulo: "How Do Thermal Cameras Work? — Teledyne FLIR", link: "https://www.youtube.com/watch?v=dgQMw4406PI" },
     { titulo: "Industrial Thermography: Practical Applications", link: "https://www.youtube.com/watch?v=rlJw-98DQrI" },
     { titulo: "Veja como é feita uma termografia — Manutenção Predial", link: "https://www.youtube.com/watch?v=JMCvTpIAnCg" },
-    { titulo: "Termografia", link: "https://www.youtube.com/watch?v=Kbq3C7Kf9nE" },
     { titulo: "Termografia", link: "https://youtu.be/Mhu9qSqZ2ao" },
     { titulo: "Aula #01 — O que é Termografia? — Escola de Termografia", link: "https://www.youtube.com/watch?v=W6sQLMPlUDM" },
     { titulo: "Aplicações da câmera termográfica — IPT", link: "https://www.youtube.com/watch?v=DK0_rhMwghE" },
+    { titulo: "Termografia", link: "https://youtu.be/YdmCAKS_fmY" },
   ],
 
   /* --- Canais recomendados (aparecem como links abaixo dos vídeos) - */
   canais: [
-    { nome: "Infrared Training Center", link: "https://www.youtube.com/infraredtraining" },
   ],
 
   /* --- Artigos comentados ------------------------------------------

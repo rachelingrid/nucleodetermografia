@@ -345,3 +345,4 @@ p{margin:0 0 1em}
 .canais:empty{display:none}
 .insc-lista a{overflow-wrap:anywhere}
 @media (max-width:760px){.insc-base>div{flex-direction:column;align-items:flex-start;gap:4px}}
+.marca .marca-nute{width:auto;height:48px}
