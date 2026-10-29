@@ -17,12 +17,18 @@ const SITE = {
      false = esconde a faixa (quando o Núcleo estiver formalizado) */
   modoProposta: true,
 
-  /* --- Contato --------------------------------------------------- */
+  /* --- Contato e inscrição (faixa azul da seção "Participe") ---- */
   contato: {
-    email: "",                       // ex.: "termografia@peb.ufrj.br" (vazio = não mostra botão)
-    telefone: "(21) 3938-8629",
-    sala: "Sala H-327 — Programa de Engenharia Biomédica (PEB/COPPE/UFRJ)",
-    endereco: "Av. Horácio Macedo, 2030 — Centro de Tecnologia, Cidade Universitária, Rio de Janeiro – RJ",
+    email: "nucleodetermografia@gmail.com",            // e-mail geral do site
+    inscricao: "https://wa.me/qr/4VEF56B4U67PG1",       // link do QR code de inscrição
+    duracao: "45 min a 1h",
+    laboratorio: "Laboratório LAPIS — Programa de Engenharia Biomédica (PEB/COPPE/UFRJ)",
+    sala: "Sala 110 NTIEB — Bloco 3 — Cidade Universitária, Rio de Janeiro",
+    whatsapp: [
+      { nome: "Márcia", numero: "(21) 98894-8210" },
+      { nome: "Rachel", numero: "(21) 98081-3639" },
+    ],
+    emails: ["mmasc@peb.ufrj.br", "rachelingrid@peb.ufrj.br"],
   },
 
   /* --- Fotos do campus no topo do site (animação) -----------------
@@ -36,7 +42,19 @@ const SITE = {
   /* --- Vídeos (YouTube) -------------------------------------------
      Cole o link inteiro do YouTube. As miniaturas giram sozinhas. */
   videos: [
-    // { titulo: "O que é termografia?", link: "https://www.youtube.com/watch?v=XXXXXXXXXXX" },
+    { titulo: "What is Infrared? — Teledyne FLIR", link: "https://www.youtube.com/watch?v=PCH0EzpAP34" },
+    { titulo: "How Do Thermal Cameras Work? — Teledyne FLIR", link: "https://www.youtube.com/watch?v=dgQMw4406PI" },
+    { titulo: "Industrial Thermography: Practical Applications", link: "https://www.youtube.com/watch?v=rlJw-98DQrI" },
+    { titulo: "Veja como é feita uma termografia — Manutenção Predial", link: "https://www.youtube.com/watch?v=JMCvTpIAnCg" },
+    { titulo: "Termografia", link: "https://www.youtube.com/watch?v=Kbq3C7Kf9nE" },
+    { titulo: "Termografia", link: "https://youtu.be/Mhu9qSqZ2ao" },
+    { titulo: "Aula #01 — O que é Termografia? — Escola de Termografia", link: "https://www.youtube.com/watch?v=W6sQLMPlUDM" },
+    { titulo: "Aplicações da câmera termográfica — IPT", link: "https://www.youtube.com/watch?v=DK0_rhMwghE" },
+  ],
+
+  /* --- Canais recomendados (aparecem como links abaixo dos vídeos) - */
+  canais: [
+    { nome: "Infrared Training Center", link: "https://www.youtube.com/infraredtraining" },
   ],
 
   /* --- Artigos comentados ------------------------------------------

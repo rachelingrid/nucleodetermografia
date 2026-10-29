@@ -39,15 +39,29 @@
   });
   menu.addEventListener("click", (e) => { if (e.target.tagName === "A") { menu.classList.remove("aberto"); btn.setAttribute("aria-expanded", "false"); } });
 
-  /* Contato */
+  /* Contato: faixa de inscrição */
   const c = D.contato || {};
-  $("contatoSala").innerHTML = `${esc(c.sala)}<br>${esc(c.endereco)}`;
-  const acoes = [];
-  if (c.email) acoes.push(`<a class="btn btn-azul" href="mailto:${esc(c.email)}">Enviar e-mail</a>`);
-  if (c.telefone) acoes.push(`<a class="btn btn-linha" href="tel:${esc(c.telefone.replace(/\D/g, ""))}">Ligar ${esc(c.telefone)}</a>`);
-  $("contatoAcoes").innerHTML = acoes.join("");
-  $("enderecoContato").innerHTML = `${esc(c.sala)}<br>${esc(c.endereco)}`;
-  $("rodapeContato").innerHTML = [c.email && `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`, c.telefone && esc(c.telefone), esc(c.sala)].filter(Boolean).join("<br>");
+  const wa = (n) => "https://wa.me/55" + String(n).replace(/\D/g, "");
+  const pin = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>';
+  const zaps = (c.whatsapp || []).map((w) => `<a href="${wa(w.numero)}" target="_blank" rel="noopener">${esc(w.numero)} <span>(${esc(w.nome)})</span></a>`).join("");
+  const mails = (c.emails || []).concat(c.email ? [c.email] : []).map((m) => `<a href="mailto:${esc(m)}">${esc(m)}</a>`).join("");
+  $("contatoBox").innerHTML = `
+    <div class="insc-topo">
+      ${c.inscricao ? `<a class="insc-qr" href="${esc(c.inscricao)}" target="_blank" rel="noopener" aria-label="Abrir inscrição pelo WhatsApp"><img src="img/qr-inscricao.svg" alt="QR code para inscrição pelo WhatsApp" width="150" height="150"></a>` : ""}
+      <div class="insc-txt">
+        <h3>Escaneie para inscrição rápida</h3>
+        <p class="insc-sub">Participe na UFRJ${c.duracao ? ` (${esc(c.duracao)})` : ""}</p>
+        <p class="insc-local">${pin}<span>${esc(c.laboratorio)}<br>${esc(c.sala)}</span></p>
+        ${c.inscricao ? `<a class="btn btn-claro insc-btn" href="${esc(c.inscricao)}" target="_blank" rel="noopener">Está no celular? Toque para se inscrever</a>` : ""}
+      </div>
+    </div>
+    <div class="insc-base">
+      ${zaps ? `<div><b class="zap">WhatsApp</b><div class="insc-lista">${zaps}</div></div>` : ""}
+      ${mails ? `<div><b>E-mails</b><div class="insc-lista">${mails}</div></div>` : ""}
+    </div>`;
+  const local = `${esc(c.laboratorio)}<br>${esc(c.sala)}`;
+  $("enderecoContato").innerHTML = local;
+  $("rodapeContato").innerHTML = [c.email && `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`, ...(c.whatsapp || []).map((w) => `WhatsApp ${esc(w.numero)} (${esc(w.nome)})`)].filter(Boolean).join("<br>");
   $("ano").textContent = new Date().getFullYear();
 
   /* Fotos do campus no topo */
@@ -96,6 +110,8 @@
       if (b) abrirVideo(b.dataset.id);
     });
   }
+  const canais = D.canais || [];
+  if (canais.length) $("canais").innerHTML = "Canais recomendados: " + canais.map((k) => `<a href="${esc(k.link)}" target="_blank" rel="noopener">${esc(k.nome)}</a>`).join(" · ");
   const modal = $("modal");
   function abrirVideo(id) {
     $("modalVideo").innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="Vídeo" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;

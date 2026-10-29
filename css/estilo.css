@@ -313,3 +313,35 @@ p{margin:0 0 1em}
 .emblema img{width:240px;height:auto;border-radius:6px}
 .emblema p{color:var(--texto-2)}
 @media (max-width:700px){.emblema{grid-template-columns:1fr}.emblema img{width:180px;margin:0 auto}}
+
+/* ===== Faixa de inscrição (banner com QR code) ===== */
+.inscricao{margin-top:44px;border-radius:14px;overflow:hidden;box-shadow:var(--sombra);border:1px solid var(--linha)}
+.insc-topo{display:flex;gap:28px;align-items:center;padding:24px 28px;background:linear-gradient(120deg,var(--noite) 0%,var(--noite-2) 55%,var(--azul) 100%);color:#fff}
+.insc-qr{flex:0 0 auto;background:#fff;border-radius:12px;padding:10px;display:block}
+.insc-qr img{width:150px;height:150px;display:block}
+.insc-txt{border-left:2px solid rgba(255,255,255,.35);padding-left:28px}
+.insc-txt h3{color:#fff;font-size:clamp(1.25rem,2.6vw,1.75rem);font-weight:700;text-transform:uppercase;letter-spacing:.01em;margin:0}
+.insc-sub{font-family:var(--t-titulo);font-weight:700;font-size:clamp(1.1rem,2.2vw,1.45rem);text-transform:uppercase;margin:.15em 0 .7em;color:#fff}
+.insc-local{display:flex;gap:10px;align-items:flex-start;color:#D4E3F5;margin:0}
+.insc-local svg{flex:0 0 22px;width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2;margin-top:2px}
+.insc-btn{display:none;margin-top:16px}
+.insc-base{display:grid;grid-template-columns:1fr 1fr;gap:20px;background:var(--nevoa);padding:16px 28px}
+.insc-base>div{display:flex;gap:18px;align-items:center}
+.insc-base>div+div{border-left:1px solid var(--linha);padding-left:20px}
+.insc-base b{font-family:var(--t-titulo);color:var(--azul);flex:0 0 auto}
+.insc-base b.zap{color:#1A8A4A}
+.insc-lista{display:flex;flex-direction:column}
+.insc-lista a{color:var(--noite);text-decoration:none;font-weight:600}
+.insc-lista a:hover{color:var(--azul);text-decoration:underline}
+.insc-lista span{font-weight:400;color:var(--texto-2)}
+@media (max-width:760px){
+  .insc-topo{flex-direction:column;align-items:flex-start;padding:22px}
+  .insc-txt{border-left:0;padding-left:0}
+  .insc-btn{display:inline-block}
+  .insc-base{grid-template-columns:1fr;padding:16px 22px}
+  .insc-base>div+div{border-left:0;padding-left:0;border-top:1px solid var(--linha);padding-top:14px}
+}
+.canais{margin:14px 0 0;font-size:.92rem;color:var(--texto-2)}
+.canais:empty{display:none}
+.insc-lista a{overflow-wrap:anywhere}
+@media (max-width:760px){.insc-base>div{flex-direction:column;align-items:flex-start;gap:4px}}
