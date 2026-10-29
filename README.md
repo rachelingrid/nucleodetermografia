@@ -59,7 +59,7 @@ css/estilo.css      visual (cores, tipografia, layout)
 js/conteudo.js      ← CONTEÚDO EDITÁVEL
 js/site.js          funcionamento (não precisa mexer)
 fonts/              Roboto e Open Sans (licença OFL), servidas pelo próprio site
-img/marca.svg       marca do Núcleo
+img/nute-logo.png   logotipo NUTE (e versões mini/favicon)
 img/logos/          logotipos institucionais
 img/equipe/ img/campus/ img/fotos/
 CNAME               domínio personalizado
@@ -77,7 +77,7 @@ HTML, CSS e JavaScript puros: sem frameworks, sem etapa de compilação, sem ser
 
 ## Identidade visual
 
-- **Marca:** isotermas (curvas de mesma temperatura) com uma mira de medida ao centro — medir o calor com rigor e repetibilidade.
+- **Marca:** logotipo NUTE — Vesta, deusa do fogo sagrado, segurando a chama: o calor que medimos e a medida mantida sempre do mesmo jeito. Dialoga com a Minerva do brasão da UFRJ.
 - **Cores:** Azul-noite `#0A2342` · Azul-engenharia `#1F5FA8` · Azul-sinal `#3B8ED8` · Azul-gelo `#9BD6F4` · Branco-névoa `#F4F8FC`.
 - **Tipografia:** Roboto (títulos) e Open Sans (textos).
 - **Emblema NUTE:** versão solene (certificados, placas, eventos), em `img/nute-emblema.jpg`.
