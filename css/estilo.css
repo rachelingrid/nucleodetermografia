@@ -285,10 +285,6 @@ p{margin:0 0 1em}
 .logo-texto{font-family:var(--t-titulo);font-weight:700;font-size:2rem;letter-spacing:.08em;color:var(--noite);text-decoration:none}
 .logos a{text-decoration:none}
 .logos p{margin:0;font-size:.88rem;color:var(--texto-2)}
-.gov{margin-top:28px;display:flex;justify-content:flex-end;align-items:center;gap:16px;flex-wrap:wrap-reverse}
-.gov p{margin:0;font-size:.88rem;color:var(--texto-2)}
-.gov-caixa{background:#fff;padding:8px;border-radius:4px;display:block}
-.gov-caixa img{width:240px;min-width:200px;height:auto}
 
 /* ===== Localização ===== */
 .grade-local{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:center}
@@ -311,3 +307,9 @@ p{margin:0 0 1em}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+/* ===== Emblema NUTE ===== */
+.emblema{display:grid;grid-template-columns:240px 1fr;gap:32px;align-items:center;margin-top:20px;background:#fff;border:1px solid var(--linha);border-radius:var(--raio);padding:28px}
+.emblema img{width:240px;height:auto;border-radius:6px}
+.emblema p{color:var(--texto-2)}
+@media (max-width:700px){.emblema{grid-template-columns:1fr}.emblema img{width:180px;margin:0 auto}}

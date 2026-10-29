@@ -28,7 +28,7 @@ Site de comunicação científica sobre **termografia infravermelha** do Program
 | Comunicação | Identidade visual, eventos e ciclo de visitas abertas |
 | Fotos | Galeria de eventos e do laboratório |
 | Engenharia Biomédica | PEB em destaque e links dos laboratórios do programa |
-| Links importantes | UFRJ, COPPE, PEB, LAPIS, FINEP, FAPERJ, CAPES, CNPq, MEC |
+| Links importantes | UFRJ, COPPE, PEB, LAPIS, FINEP, FAPERJ, CAPES, CNPq |
 | Como chegar | Mapa do NTIEB na Cidade Universitária |
 
 ## Como atualizar (sem programar)
@@ -80,7 +80,7 @@ HTML, CSS e JavaScript puros: sem frameworks, sem etapa de compilação, sem ser
 - **Marca:** isotermas (curvas de mesma temperatura) com uma mira de medida ao centro — medir o calor com rigor e repetibilidade.
 - **Cores:** Azul-noite `#0A2342` · Azul-engenharia `#1F5FA8` · Azul-sinal `#3B8ED8` · Azul-gelo `#9BD6F4` · Branco-névoa `#F4F8FC`.
 - **Tipografia:** Roboto (títulos) e Open Sans (textos).
-- **Governo Federal:** aplicada conforme o Manual de Uso da Marca (v1.2, ago/2025) — por último na sequência de assinaturas, sobre box branco, largura mínima de 200 px.
+- **Emblema NUTE:** versão solene (certificados, placas, eventos), em `img/nute-emblema.jpg`.
 
 ## Equipe
 
